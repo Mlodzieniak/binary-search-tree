@@ -1,0 +1,39 @@
+{
+  "name": "webpack-project-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mlodzieniak/webpack-project-starter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mlodzieniak/webpack-project-starter/issues"
+  },
+  "homepage": "https://github.com/Mlodzieniak/webpack-project-starter#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "eslint": "^8.33.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "favicons": "^7.0.2",
+    "favicons-webpack-plugin": "^6.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.8.3",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-bundle-analyzer": "^4.7.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
