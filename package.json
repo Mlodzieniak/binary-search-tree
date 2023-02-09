@@ -1,5 +1,5 @@
 {
-  "name": "webpack-project-starter",
+  "name": "binary-search-tree",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mlodzieniak/webpack-project-starter.git"
+    "url": "git+https://github.com/Mlodzieniak/binary-search-tree.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Mlodzieniak/webpack-project-starter/issues"
+    "url": "https://github.com/Mlodzieniak/binary-search-tree/issues"
   },
-  "homepage": "https://github.com/Mlodzieniak/webpack-project-starter#readme",
+  "homepage": "https://github.com/Mlodzieniak/binary-search-tree#readme",
   "devDependencies": {
     "css-loader": "^6.7.3",
     "eslint": "^8.33.0",
