@@ -13,7 +13,7 @@ function Tree() {
     this.root.left = null;
     this.root.right = null;
     if (sorted.length === 1) {
-      return this.root;
+      return this;
     }
     const leftArr = sorted.slice(0, middleEle);
     const rightArr = sorted.slice(-middleEle);
@@ -27,7 +27,26 @@ function Tree() {
       const rightTree = new Tree();
       this.root.right = rightTree.buildTree(rightArr);
     }
-    return this.root;
+    return this;
+  };
+  this.insert = (newValue) => {
+    if (this.root.value === newValue) console.log("Inserted duplicate");
+    if (newValue > this.root.value) {
+      if (this.root.right === null) {
+        const rightTree = new Tree();
+        this.root.right = rightTree.buildTree([newValue]);
+      } else {
+        this.root.right.insert(newValue);
+      }
+    }
+    if (newValue < this.root.value) {
+      if (this.root.left === null) {
+        const leftTree = new Tree();
+        this.root.left = leftTree.buildTree([newValue]);
+      } else {
+        this.root.left.insert(newValue);
+      }
+    }
   };
   return `${this.root}`;
 }
@@ -36,12 +55,14 @@ const mainTree = new Tree();
 mainTree.buildTree(mixedArr);
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  if (node.root.right !== null) {
+    prettyPrint(node.root.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
   }
-  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.root.value}`);
+  if (node.root.left !== null) {
+    prettyPrint(node.root.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
-prettyPrint(mainTree.root);
+prettyPrint(mainTree);
+mainTree.insert(2);
+prettyPrint(mainTree);
