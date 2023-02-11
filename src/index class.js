@@ -48,6 +48,46 @@ function Tree() {
       }
     }
   };
+
+  this.findLowestSuccessor = (child) => {
+    if (child.root.left === null) {
+      return child;
+    }
+    return this.findLowestSuccessor(child.root.left);
+  };
+
+  this.delete = (valToDelete, parent = null, isLeft = true) => {
+    if (this.root === null) return null;
+
+    if (valToDelete > this.root.value) {
+      this.root.right.delete(valToDelete, this.root, false);
+    }
+    if (valToDelete < this.root.value) {
+      this.root.left.delete(valToDelete, this.root, true);
+    }
+
+    if (valToDelete === this.root.value) {
+      if (this.root.left === null && this.root.right === null) {
+        // node has no children
+        console.log(`deleted ${this.root.value}`);
+        isLeft ? (parent.left = null) : (parent.right = null);
+      } else if (this.root.left === null && this.root.right !== null) {
+        // node has one child
+        isLeft
+          ? (parent.left = this.root.right)
+          : (parent.right = this.root.right);
+      } else if (this.root.left !== null && this.root.right === null) {
+        isLeft
+          ? (parent.left = this.root.left)
+          : (parent.right = this.root.left);
+      } else {
+        // has two children
+        const successor = this.findLowestSuccessor(this.root.right);
+        this.delete(successor.root.value);
+        this.root.value = successor.root.value;
+      }
+    }
+  };
   return `${this.root}`;
 }
 const mixedArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 13, 77, 42, 67, 6345, 324];
@@ -65,4 +105,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 prettyPrint(mainTree);
 mainTree.insert(2);
+prettyPrint(mainTree);
+mainTree.delete(77);
 prettyPrint(mainTree);
