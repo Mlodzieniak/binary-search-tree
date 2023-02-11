@@ -56,6 +56,16 @@ function Tree() {
     return this.findLowestSuccessor(child.root.left);
   };
 
+  this.find = (value) => {
+    if (this.root.value === value) return this;
+    if (value < this.root.value) {
+      if (this.root.left !== null) return this.root.left.find(value);
+      return "Couldn't find value";
+    }
+    if (this.root.right !== null) return this.root.right.find(value);
+    return "Couldn't find value";
+  };
+
   this.delete = (valToDelete, parent = null, isLeft = true) => {
     if (this.root === null) return null;
 
@@ -103,8 +113,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     prettyPrint(node.root.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
-prettyPrint(mainTree);
+// prettyPrint(mainTree);
 mainTree.insert(2);
-prettyPrint(mainTree);
+// prettyPrint(mainTree);
 mainTree.delete(77);
 prettyPrint(mainTree);
+console.log(mainTree.find(324));
