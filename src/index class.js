@@ -117,10 +117,51 @@ function Tree() {
     });
     return list;
   };
-  this.inorder = (fn, list = []) => {
+  this.preorder = (fn, list = []) => {
     if (!list.includes(this)) {
       list.push(this.root.value);
     }
+    if (typeof fn === "function") {
+      fn(this.root.value);
+    }
+    if (this.root.left !== null) {
+      this.root.left.preorder(fn, list);
+    }
+    if (this.root.right !== null) {
+      this.root.right.preorder(fn, list);
+    }
+    return list;
+  };
+  this.inorder = (fn, list = []) => {
+    if (this.root.left !== null) {
+      this.root.left.inorder(fn, list);
+    }
+    if (!list.includes(this)) {
+      list.push(this.root.value);
+    }
+    if (typeof fn === "function") {
+      fn(this.root.value);
+    }
+    if (this.root.right !== null) {
+      this.root.right.inorder(fn, list);
+    }
+    return list;
+  };
+  this.postorder = (fn, list = []) => {
+    if (this.root.left !== null) {
+      this.root.left.postorder(fn, list);
+    }
+
+    if (this.root.right !== null) {
+      this.root.right.postorder(fn, list);
+    }
+    if (!list.includes(this)) {
+      list.push(this.root.value);
+    }
+    if (typeof fn === "function") {
+      fn(this.root.value);
+    }
+    return list;
   };
 
   return `${this.root}`;
@@ -151,4 +192,7 @@ function display(value) {
   console.log(value);
 }
 // mainTree.levelOrderRec(display);
-console.log(mainTree.levelOrderRec(display));
+// console.log(mainTree.levelOrderRec(display));
+console.log(`preorder ${mainTree.preorder()}`);
+console.log(`inorder ${mainTree.inorder()}`);
+console.log(`postorder ${mainTree.postorder()}`);
