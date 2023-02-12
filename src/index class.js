@@ -163,6 +163,28 @@ function Tree() {
     }
     return list;
   };
+  this.highest = (arr) => {
+    let top = 0;
+    arr.forEach((ele) => {
+      if (ele > top) top = ele;
+    });
+    return top;
+  };
+  this.height = (level = 0, list = []) => {
+    level++;
+    if (this.root.left === null && this.root.right === null) {
+      list.push(level);
+    }
+    if (this.root.left !== null) {
+      this.root.left.height(level, list);
+    }
+    if (this.root.right !== null) {
+      this.root.right.height(level, list);
+    }
+    level--;
+    return this.highest(list);
+  };
+  this.depth = () => {};
 
   return `${this.root}`;
 }
@@ -196,3 +218,5 @@ function display(value) {
 console.log(`preorder ${mainTree.preorder()}`);
 console.log(`inorder ${mainTree.inorder()}`);
 console.log(`postorder ${mainTree.postorder()}`);
+console.log(`tree height: ${mainTree.height()}`);
+console.log(`height of 5: ${mainTree.find(5).height()}`);
