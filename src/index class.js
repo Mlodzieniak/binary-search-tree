@@ -200,6 +200,23 @@ function Tree() {
     }
     return deep;
   };
+  this.isBalanced = (level = 0, list = []) => {
+    level++;
+    if (this.root.left === null && this.root.right === null) {
+      list.push(level);
+    }
+    if (this.root.left !== null) {
+      this.root.left.height(level, list);
+    }
+    if (this.root.right !== null) {
+      this.root.right.height(level, list);
+    }
+    level--;
+    const sorted = new Set(list);
+    console.log(sorted);
+    console.log(sorted.size);
+    return !(sorted.size > 2);
+  };
 
   return `${this.root}`;
 }
@@ -236,3 +253,6 @@ console.log(`postorder ${mainTree.postorder()}`);
 console.log(`tree height: ${mainTree.height()}`);
 console.log(`height of 5: ${mainTree.find(5).height()}`);
 console.log(`depth ${mainTree.depth(6345)}`);
+console.log(`isBalanced ${mainTree.isBalanced()}`);
+mainTree.delete(2);
+console.log(`isBalanced ${mainTree.isBalanced()}`);
