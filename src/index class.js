@@ -98,6 +98,31 @@ function Tree() {
       }
     }
   };
+  this.levelOrderRec = (fn, queue = [], list = []) => {
+    if (!queue.includes(this)) {
+      queue.push(this);
+    }
+
+    if (this.root.left !== null) {
+      queue.push(this.root.left);
+    }
+    if (this.root.right !== null) {
+      queue.push(this.root.right);
+    }
+    fn(queue[0].root.value);
+    queue.splice(0, 1);
+
+    queue.forEach((ele) => {
+      ele.levelOrderRec(fn, queue, list);
+    });
+    return list;
+  };
+  this.inorder = (fn, list = []) => {
+    if (!list.includes(this)) {
+      list.push(this.root.value);
+    }
+  };
+
   return `${this.root}`;
 }
 const mixedArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 13, 77, 42, 67, 6345, 324];
@@ -118,4 +143,12 @@ mainTree.insert(2);
 // prettyPrint(mainTree);
 mainTree.delete(77);
 prettyPrint(mainTree);
-console.log(mainTree.find(324));
+// console.log(mainTree.find(324));
+
+// if queue is empty add current node
+// else
+function display(value) {
+  console.log(value);
+}
+// mainTree.levelOrderRec(display);
+console.log(mainTree.levelOrderRec(display));
