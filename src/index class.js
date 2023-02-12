@@ -184,7 +184,22 @@ function Tree() {
     level--;
     return this.highest(list);
   };
-  this.depth = () => {};
+  this.depth = (value, deep = 0, searchedNode = null) => {
+    deep++;
+    if (!searchedNode) {
+      searchedNode = this.find(value);
+    }
+    if (searchedNode !== null) {
+      if (this === searchedNode) return deep;
+      if (this.root.value > searchedNode.root.value) {
+        return this.root.left.depth(value, deep, searchedNode);
+      }
+      if (this.root.value < searchedNode.root.value) {
+        return this.root.right.depth(value, deep, searchedNode);
+      }
+    }
+    return deep;
+  };
 
   return `${this.root}`;
 }
@@ -220,3 +235,4 @@ console.log(`inorder ${mainTree.inorder()}`);
 console.log(`postorder ${mainTree.postorder()}`);
 console.log(`tree height: ${mainTree.height()}`);
 console.log(`height of 5: ${mainTree.find(5).height()}`);
+console.log(`depth ${mainTree.depth(6345)}`);
