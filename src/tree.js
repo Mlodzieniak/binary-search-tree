@@ -8,9 +8,7 @@ function Tree() {
   this.root = null;
   this.buildTree = (arr) => {
     const sorted = Array.from(new Set(arr.sort((a, b) => a - b)));
-    // console.log(`from buildtree ${sorted}`);
     const middleEle = Math.ceil((sorted.length - 1) / 2);
-    // console.log(`middle ${sorted[middleEle]}`);
     this.root = new Node(sorted[middleEle]);
     this.root.left = null;
     this.root.right = null;
@@ -19,8 +17,6 @@ function Tree() {
     }
     const leftArr = sorted.slice(0, middleEle);
     const rightArr = sorted.slice(-middleEle);
-    // console.log(leftArr);
-    // console.log(rightArr);
     if (sorted[middleEle] === rightArr[0]) {
       rightArr.splice(0, 1);
     }
@@ -224,14 +220,10 @@ function Tree() {
     }
     level--;
     const sorted = new Set(list);
-    // console.log(sorted);
-    // console.log(sorted.size);
     return !(sorted.size > 2);
   };
   this.rebalance = () => {
     const newArr = this.inorder();
-    // console.log(newArr);
-    // this.root = null;
     this.buildTree(newArr);
   };
 
