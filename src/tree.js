@@ -108,6 +108,9 @@ function Tree() {
     if (!queue.includes(this)) {
       queue.push(this);
     }
+    if (!list.includes(this)) {
+      list.push(this.root.value);
+    }
 
     if (this.root.left !== null) {
       queue.push(this.root.left);
@@ -115,7 +118,9 @@ function Tree() {
     if (this.root.right !== null) {
       queue.push(this.root.right);
     }
-    fn(queue[0].root.value);
+    if (typeof fn === "function") {
+      fn(queue[0].root.value);
+    }
     queue.splice(0, 1);
 
     queue.forEach((ele) => {
@@ -232,11 +237,6 @@ function Tree() {
 
   return `${this.root}`;
 }
-const mixedArr = [
-  1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 33, 9, 13, 77, 42, 67, 6345, 324,
-];
-const mainTree = new Tree();
-mainTree.buildTree(mixedArr);
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node.root.right !== null) {
@@ -247,27 +247,49 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     prettyPrint(node.root.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
-mainTree.insert(2);
-// prettyPrint(mainTree);
+const mixedArr = [
+  1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 33, 9, 13, 77, 42, 67, 6345, 324,
+];
+const mainTree = new Tree();
+mainTree.buildTree(mixedArr);
+
+function randomArr(size, range) {
+  if (size > range) return "Size cannot be bigger than range";
+  const arr = [];
+  for (let i = 0; i < size; i++) {
+    const randomInt = Math.floor(Math.random() * range);
+    if (!arr.includes(randomInt)) {
+      arr.push(randomInt);
+    } else {
+      i--;
+    }
+  }
+  return arr;
+}
 function display(value) {
   console.log(value);
 }
 
-console.log(`preorder ${mainTree.preorder()}`);
-console.log(`inorder ${mainTree.inorder()}`);
-console.log(`postorder ${mainTree.postorder()}`);
-console.log(`tree height: ${mainTree.height()}`);
-console.log(`height of 5: ${mainTree.find(5).height()}`);
-console.log(`depth ${mainTree.depth(6345)}`);
-// mainTree.delete(324);
-console.log(`isBalanced ${mainTree.isBalanced()}`);
-// prettyPrint(mainTree);
-
-mainTree.insert(99);
-mainTree.insert(199);
-
-prettyPrint(mainTree);
-
-console.log(`isBalanced ${mainTree.isBalanced()}`);
-mainTree.rebalance();
-prettyPrint(mainTree);
+function demo(arr) {
+  const demoTree = new Tree();
+  demoTree.buildTree(arr);
+  prettyPrint(demoTree);
+  console.log(`Is balanced? ${demoTree.isBalanced()}`);
+  console.log(`Level order: ${demoTree.levelOrderRec()}`);
+  console.log(`Preorder: ${demoTree.preorder()}`);
+  console.log(`Inorder: ${demoTree.inorder()}`);
+  console.log(`Postorder: ${demoTree.postorder()}`);
+  const intToInsert = randomArr(50, 1000);
+  intToInsert.forEach((int) => {
+    demoTree.insert(int);
+  });
+  console.log(`Is balanced? ${demoTree.isBalanced()}`);
+  demoTree.rebalance();
+  console.log(`Is balanced? ${demoTree.isBalanced()}`);
+  console.log(`Level order: ${demoTree.levelOrderRec()}`);
+  console.log(`Preorder: ${demoTree.preorder()}`);
+  console.log(`Inorder: ${demoTree.inorder()}`);
+  console.log(`Postorder: ${demoTree.postorder()}`);
+  prettyPrint(demoTree);
+}
+demo(randomArr(10, 1000));
